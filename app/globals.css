@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════
+   오늘의 사주 — 디자인 시스템
+   조용한 럭셔리 / 딥 에스프레소 테마
+   ═══════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* ── 배경 ── */
+    --bg-base:     #0f0d0b;   /* 거의 블랙에 가까운 딥 에스프레소 */
+    --bg-surface:  #1a1612;   /* 카드 위 표면 */
+    --bg-card:     #211c17;   /* 카드 배경 */
+    --bg-elevated: #2a231c;   /* 강조 카드 */
+
+    /* ── 보더 ── */
+    --border-gold:   rgba(180, 140, 80, 0.20);  /* 무광 골드 보더 기본 */
+    --border-gold-md:rgba(180, 140, 80, 0.35);  /* 중간 강도 */
+    --border-gold-hv:rgba(180, 140, 80, 0.55);  /* 호버 시 */
+    --border-subtle: rgba(255, 255, 255, 0.06); /* 섬세한 구분선 */
+
+    /* ── 텍스트 ── */
+    --text-primary:   #f5f0e8;   /* 아이보리 — 메인 텍스트 */
+    --text-secondary: #9e9080;   /* 웜 그레이 — 서브 텍스트 */
+    --text-muted:     #6b6055;   /* 더 흐린 보조 */
+    --text-gold:      #c9a96e;   /* 골드 텍스트 */
+
+    /* ── 포인트 / 액센트 ── */
+    --accent-gold:    #b8924a;   /* 채도 낮은 무광 골드 */
+    --accent-bronze:  #8a6d35;   /* 브론즈 — CTA 배경 */
+    --accent-hover:   #9e7d3e;   /* CTA 호버 */
+    --accent-active:  #7a5f2a;   /* CTA 눌렀을 때 */
+
+    /* ── 배지 ── */
+    --badge-bg:   rgba(180, 140, 80, 0.15);
+    --badge-text: #c9a96e;
+    --badge-border: rgba(180, 140, 80, 0.30);
+
+    /* ── 그림자 ── */
+    --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.45);
+    --shadow-elevated: 0 4px 32px rgba(0, 0, 0, 0.60);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100dvh;
+  }
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-gold-md);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* ── 카드 ── */
+  .card-base {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-elevated {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-gold-md);
+    border-radius: 16px;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* ── CTA 버튼 ── */
+  .btn-primary {
+    background: var(--accent-bronze);
+    color: var(--text-primary);
+    border: 1px solid var(--border-gold-md);
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover  { background: var(--accent-hover); }
+  .btn-primary:active { transform: scale(0.98); background: var(--accent-active); }
+
+  /* ── 배지 ── */
+  .badge-gold {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    border: 1px solid var(--badge-border);
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+  }
+
+  /* ── 구분선 ── */
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--border-gold-md) 30%,
+      var(--border-gold-md) 70%,
+      transparent
+    );
+  }
+
+  /* ── 섹션 라벨 ── */
+  .label-overline {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-gold);
+  }
+}
+
+/* ── 인쇄 스타일 ── */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+  @page { margin: 16mm 12mm; }
+}
