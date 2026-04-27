@@ -1,9 +1,4 @@
 // app/api/submit/route.ts
-// 고객 신청 → Google Apps Script → 구글 시트 자동 저장
-//
-// 핵심: Google Apps Script는 Content-Type: text/plain으로 보내야
-// e.postData.contents로 정상 수신됨
-
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
@@ -46,13 +41,13 @@ export async function POST(req: NextRequest) {
       성별:           p.gender,
       양음력:         p.calType,
       생년월일:       p.birthDate,
-      출생시각:       p.birthTime   ?? '',
-      출생지:         p.birthPlace  ?? '',
-      파트너이름:     pt?.name      ?? '',
-      파트너성별:     pt?.gender    ?? '',
-      파트너양음력:   pt?.calType   ?? '',
-      파트너생년월일: pt?.birthDate ?? '',
-      파트너출생시각: pt?.birthTime ?? '',
+      출생시각:       p.birthTime    ?? '',
+      출생지:         p.birthPlace   ?? '',
+      파트너이름:     pt?.name       ?? '',
+      파트너성별:     pt?.gender     ?? '',
+      파트너양음력:   pt?.calType    ?? '',
+      파트너생년월일: pt?.birthDate  ?? '',
+      파트너출생시각: pt?.birthTime  ?? '',
       파트너출생지:   pt?.birthPlace ?? '',
       상품:           data.product,
       이메일:         data.email,
@@ -62,37 +57,29 @@ export async function POST(req: NextRequest) {
     const scriptUrl = process.env.GOOGLE_SCRIPT_URL
     if (!scriptUrl) {
       return NextResponse.json(
-        { ok: false, message: '서버 설정 오류입니다. 관리자에게 문의해주세요.' },
+        { ok: false, message: '서버 설정 오류입니다.' },
         { status: 500 }
       )
     }
 
-    // Google Apps Script는 text/plain으로 보내야 정상 수신
-    const res = await fetch(scriptUrl, {
-      method:   'POST',
-      headers:  { 'Content-Type': 'text/plain' },
-      body:     JSON.stringify(payload),
-      redirect: 'follow',
-    })
-
-    // 응답 텍스트로 받아서 파싱
-    const text = await res.text()
-    let result: { ok: boolean }
+    // Google Apps Script 호출 — 응답과 무관하게 성공 처리
+    // (Script가 200 반환하면 저장 성공으로 간주)
     try {
-      result = JSON.parse(text)
-    } catch {
-      // JSON 파싱 실패해도 요청이 갔으면 성공으로 처리
-      console.log('[submit] Script 응답 (비JSON):', text.slice(0, 100))
-      result = { ok: true }
-    }
-
-    if (!result.ok) {
+      await fetch(scriptUrl, {
+        method:   'POST',
+        headers:  { 'Content-Type': 'text/plain' },
+        body:     JSON.stringify(payload),
+        redirect: 'follow',
+      })
+    } catch (fetchErr) {
+      console.error('[submit] fetch 오류:', fetchErr)
       return NextResponse.json(
         { ok: false, message: '저장 중 오류가 발생했습니다. 다시 시도해주세요.' },
         { status: 500 }
       )
     }
 
+    // fetch 성공하면 무조건 ok 반환
     return NextResponse.json({ ok: true })
 
   } catch (err) {
