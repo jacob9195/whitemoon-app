@@ -21,7 +21,7 @@ const notoSerifKR = Noto_Serif_KR({
 })
 
 export const metadata: Metadata = {
-  title: '오늘의 사주',
+  title: '월백당 오늘의 사주',
   description: '생년월일을 입력하면 나만의 사주팔자와 성향을 깊이 있게 풀어드려요',
   keywords: ['사주', '사주팔자', '오행', '운세', '무료 사주', '프리미엄 사주 리포트'],
   openGraph: {
