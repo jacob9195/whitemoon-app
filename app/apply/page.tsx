@@ -328,6 +328,20 @@ function ApplyForm() {
           </div>
         )}
 
+        {/* 발송 안내 */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          background: 'rgba(201,168,76,0.08)',
+          border: `1px solid rgba(201,168,76,0.3)`,
+          borderRadius: 12, padding: '14px 18px', marginBottom: 16,
+        }}>
+          <span style={{ fontSize: 20, flexShrink: 0 }}>📬</span>
+          <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7, fontFamily: 'sans-serif' }}>
+            입금 완료 후 <strong style={{ color: C.gold }}>24시간 이내</strong>에<br />
+            사주풀이 리포트를 이메일로 발송해드립니다
+          </p>
+        </div>
+
         {/* 개인정보 동의 */}
         <div style={{
           background: C.card, border: `1px solid ${C.goldBorder}`,
