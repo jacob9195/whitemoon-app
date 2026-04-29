@@ -181,13 +181,15 @@ function ApplyForm() {
   const params = useSearchParams()
   const initProduct = (params.get('product') as Product | null) ?? '정통사주'
 
-  const [product, setProduct] = useState<Product>(initProduct)
-  const [person,  setPerson]  = useState<PersonFields>(emptyPerson())
-  const [partner, setPartner] = useState<PersonFields>(emptyPerson())
-  const [email,   setEmail]   = useState('')
-  const [phone,   setPhone]   = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState('')
+  const [product,     setProduct]     = useState<Product>(initProduct)
+  const [person,      setPerson]      = useState<PersonFields>(emptyPerson())
+  const [partner,     setPartner]     = useState<PersonFields>(emptyPerson())
+  const [email,       setEmail]       = useState('')
+  const [phone,       setPhone]       = useState('')
+  const [agreed,      setAgreed]      = useState(false)
+  const [showPrivacy, setShowPrivacy] = useState(false)
+  const [loading,     setLoading]     = useState(false)
+  const [error,       setError]       = useState('')
 
   const isGungham = product === '궁합'
 
@@ -202,6 +204,7 @@ function ApplyForm() {
     }
     if (!email.includes('@'))   return '올바른 이메일을 입력해주세요.'
     if (phone.replace(/\D/g,'').length < 10) return '전화번호를 올바르게 입력해주세요.'
+    if (!agreed) return '개인정보 수집·이용에 동의해주세요.'
     return ''
   }
 
@@ -324,6 +327,59 @@ function ApplyForm() {
             {error}
           </div>
         )}
+
+        {/* 개인정보 동의 */}
+        <div style={{
+          background: C.card, border: `1px solid ${C.goldBorder}`,
+          borderRadius: 12, padding: '16px 18px', marginBottom: 16,
+        }}>
+          {/* 체크박스 + 동의 문구 */}
+          <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={e => setAgreed(e.target.checked)}
+              style={{ width: 18, height: 18, marginTop: 1, accentColor: C.gold, cursor: 'pointer', flexShrink: 0 }}
+            />
+            <span style={{ fontSize: 13, color: C.textMuted, lineHeight: 1.6, fontFamily: 'sans-serif' }}>
+              <strong style={{ color: C.text }}>[필수]</strong> 개인정보 수집·이용에 동의합니다
+            </span>
+          </label>
+
+          {/* 상세 보기 토글 */}
+          <button
+            type="button"
+            onClick={() => setShowPrivacy(v => !v)}
+            style={{
+              marginTop: 8, marginLeft: 28, fontSize: 11,
+              color: C.gold, background: 'none', border: 'none',
+              cursor: 'pointer', fontFamily: 'sans-serif', padding: 0,
+              textDecoration: 'underline',
+            }}
+          >
+            {showPrivacy ? '닫기 ▲' : '개인정보 수집 내용 보기 ▼'}
+          </button>
+
+          {/* 상세 내용 */}
+          {showPrivacy && (
+            <div style={{
+              marginTop: 12, marginLeft: 28,
+              padding: '12px 14px', borderRadius: 8,
+              background: C.cardInner, border: `1px solid ${C.goldDim}`,
+              fontSize: 11, color: C.textMuted, lineHeight: 1.8,
+              fontFamily: 'sans-serif',
+            }}>
+              <p style={{ fontWeight: 700, color: C.text, marginBottom: 6 }}>개인정보 수집·이용 안내</p>
+              <p>· <strong style={{ color: C.textMuted }}>수집 항목:</strong> 이름, 성별, 생년월일, 출생시각, 출생지, 이메일, 전화번호</p>
+              <p>· <strong style={{ color: C.textMuted }}>수집 목적:</strong> 사주 분석 리포트 작성 및 결과 전달</p>
+              <p>· <strong style={{ color: C.textMuted }}>보유 기간:</strong> 서비스 제공 완료 후 1년</p>
+              <p>· <strong style={{ color: C.textMuted }}>제3자 제공:</strong> 없음</p>
+              <p style={{ marginTop: 6, color: 'rgba(240,230,208,0.35)' }}>
+                동의를 거부할 권리가 있으나, 거부 시 서비스 이용이 불가합니다.
+              </p>
+            </div>
+          )}
+        </div>
 
         {/* 제출 버튼 */}
         <button onClick={handleSubmit} disabled={loading} style={{

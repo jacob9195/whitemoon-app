@@ -21,12 +21,12 @@ const notoSerifKR = Noto_Serif_KR({
 })
 
 export const metadata: Metadata = {
-  title: '월백당 오늘의 사주',
-  description: '생년월일을 입력하면 나만의 사주팔자와 성향을 깊이 있게 풀어드려요',
-  keywords: ['사주', '사주팔자', '오행', '운세', '무료 사주', '프리미엄 사주 리포트'],
+  title: '월백당사주',
+  description: '정통 명리학 기반의 깊이 있는 사주 풀이 — 당신의 운명을 구조적으로 해석합니다',
+  keywords: ['월백당사주', '사주', '사주팔자', '정통사주', '명리학', '운세', '사주 리포트'],
   openGraph: {
-    title: '월백당 오늘의 사주',
-    description: '생년월일만 입력하면 나만의 사주를 깊이 분석해드려요',
+    title: '월백당사주',
+    description: '정통 명리학 기반의 깊이 있는 사주 풀이 — 당신의 운명을 구조적으로 해석합니다',
     locale: 'ko_KR',
     type: 'website',
   },
