@@ -9,8 +9,8 @@ type Product = typeof PRODUCTS[number]
 
 const PRODUCT_PRICES: Record<Product, string> = {
   '정통사주': '24,900원',
-  '연애결혼':  '12,900원',
-  '재물사업':  '12,900원',
+  '연애결혼':  '14,900원',
+  '재물사업':  '14,900원',
   '궁합':     '15,900원',
 }
 
