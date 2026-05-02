@@ -21,6 +21,13 @@ const PRODUCT_LABELS: Record<Product, string> = {
   '궁합':     '궁합',
 }
 
+const PRODUCT_PAGES: Record<Product, string> = {
+  '정통사주': '80~100페이지',
+  '연애결혼': '50~80페이지',
+  '재물사업': '50~80페이지',
+  '궁합':     '50~80페이지',
+}
+
 const PLACES = [
   '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종',
   '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주',
@@ -280,6 +287,14 @@ function ApplyForm() {
                 </span>
                 <span style={{ fontSize: 13, fontWeight: 700, color: product===p ? '#041018' : C.gold }}>
                   {PRODUCT_PRICES[p]}
+                </span>
+                <span style={{
+                  fontSize: 11,
+                  color: product===p ? 'rgba(4,16,24,0.7)' : C.textDim,
+                  fontWeight: 400,
+                  letterSpacing: 0.3,
+                }}>
+                  {PRODUCT_PAGES[p]}
                 </span>
               </button>
             ))}
