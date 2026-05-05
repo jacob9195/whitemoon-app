@@ -4,10 +4,11 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-const PRODUCTS = ['정통사주', '연애결혼', '재물사업', '궁합'] as const
+const PRODUCTS = ['기본사주', '정통사주', '연애결혼', '재물사업', '궁합'] as const
 type Product = typeof PRODUCTS[number]
 
 const PRODUCT_PRICES: Record<Product, string> = {
+  '기본사주': '9,900원',
   '정통사주': '24,900원',
   '연애결혼':  '14,900원',
   '재물사업':  '14,900원',
@@ -15,6 +16,7 @@ const PRODUCT_PRICES: Record<Product, string> = {
 }
 
 const PRODUCT_LABELS: Record<Product, string> = {
+  '기본사주': '기본사주',
   '정통사주': '정통사주',
   '연애결혼': '연애와 결혼운',
   '재물사업': '재물과 사업운',
@@ -22,6 +24,7 @@ const PRODUCT_LABELS: Record<Product, string> = {
 }
 
 const PRODUCT_PAGES: Record<Product, string> = {
+  '기본사주': '30~50페이지',
   '정통사주': '80~100페이지',
   '연애결혼': '50~80페이지',
   '재물사업': '50~80페이지',
@@ -271,7 +274,7 @@ function ApplyForm() {
             </span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-            {PRODUCTS.map(p => (
+            {PRODUCTS.filter(p => p !== '기본사주').map(p => (
               <button key={p} type="button" onClick={() => setProduct(p)} style={{
                 padding: '14px 8px', borderRadius: 12,
                 background: product===p ? C.active : C.card,
@@ -299,6 +302,55 @@ function ApplyForm() {
               </button>
             ))}
           </div>
+
+          {/* 기본사주 — 단독 가로 버튼 (입문용) */}
+          <button
+            type="button"
+            onClick={() => setProduct('기본사주')}
+            style={{
+              width: '100%',
+              marginTop: 8,
+              padding: '14px 16px',
+              borderRadius: 12,
+              background: product==='기본사주' ? C.active : C.card,
+              border: `1px solid ${product==='기본사주' ? C.gold : C.goldBorder}`,
+              color: product==='기본사주' ? '#041018' : C.textMuted,
+              cursor: 'pointer', fontFamily:'sans-serif',
+              boxShadow: product==='기본사주' ? '0 4px 16px rgba(201,168,76,0.3)' : 'none',
+              transition: 'all 0.15s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 12,
+            }}
+          >
+            <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
+              <span style={{
+                fontSize: 10,
+                fontWeight: 600,
+                letterSpacing: 1,
+                color: product==='기본사주' ? 'rgba(4,16,24,0.7)' : C.gold,
+              }}>
+                입문용
+              </span>
+              <span style={{ fontSize: 14, fontWeight: product==='기본사주' ? 700 : 500 }}>
+                {PRODUCT_LABELS['기본사주']}
+              </span>
+            </span>
+            <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: product==='기본사주' ? '#041018' : C.gold }}>
+                {PRODUCT_PRICES['기본사주']}
+              </span>
+              <span style={{
+                fontSize: 11,
+                color: product==='기본사주' ? 'rgba(4,16,24,0.7)' : C.textDim,
+                fontWeight: 400,
+                letterSpacing: 0.3,
+              }}>
+                {PRODUCT_PAGES['기본사주']}
+              </span>
+            </span>
+          </button>
         </div>
 
         {/* 본인 정보 */}
