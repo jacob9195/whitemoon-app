@@ -6,15 +6,16 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 const ACCOUNT = {
-  bank:   process.env.NEXT_PUBLIC_BANK_NAME    ?? '카카오뱅크',
-  number: process.env.NEXT_PUBLIC_ACCOUNT_NUM  ?? '3333-36-7922632',
+  bank:   process.env.NEXT_PUBLIC_BANK_NAME    ?? '신한은행',
+  number: process.env.NEXT_PUBLIC_ACCOUNT_NUM  ?? '110-589-188498',
   holder: process.env.NEXT_PUBLIC_ACCOUNT_NAME ?? '허*준',
 }
 
 const PRICES: Record<string, number> = {
+  기본사주:  9900,
   정통사주: 24900,
-  연애결혼: 12900,
-  재물사업: 12900,
+  연애결혼: 14900,
+  재물사업: 14900,
   궁합:     15900,
 }
 
