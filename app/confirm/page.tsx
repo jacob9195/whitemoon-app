@@ -6,9 +6,9 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 const ACCOUNT = {
-  bank:   process.env.NEXT_PUBLIC_BANK_NAME    ?? '토스뱅크',
-  number: process.env.NEXT_PUBLIC_ACCOUNT_NUM  ?? '1000-7407-1075',
-  holder: process.env.NEXT_PUBLIC_ACCOUNT_NAME ?? '김*훈',
+  bank:   process.env.NEXT_PUBLIC_BANK_NAME    ?? '카카오뱅크',
+  number: process.env.NEXT_PUBLIC_ACCOUNT_NUM  ?? '3333-36-7922632',
+  holder: process.env.NEXT_PUBLIC_ACCOUNT_NAME ?? '허*준',
 }
 
 const PRICES: Record<string, number> = {
