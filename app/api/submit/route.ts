@@ -14,7 +14,7 @@ const personSchema = z.object({
 export const submitSchema = z.object({
   product: z.enum(['기본사주', '정통사주', '연애결혼', '재물사업', '궁합']),
   email:   z.string().email('올바른 이메일을 입력해주세요'),
-  phone:   z.string().min(10, '전화번호를 입력해주세요'),
+  phone:   z.string().regex(/^010\d{8}$/, '010으로 시작하는 휴대폰 번호 11자리를 입력해주세요'),
   person:  personSchema,
   partner: personSchema.optional(),
 })
