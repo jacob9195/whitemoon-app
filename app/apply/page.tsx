@@ -213,7 +213,9 @@ function ApplyForm() {
       if (!partner.birthYear || !partner.birthMonth || !partner.birthDay) return '파트너 생년월일을 입력해주세요.'
     }
     if (!email.includes('@'))   return '올바른 이메일을 입력해주세요.'
-    if (phone.replace(/\D/g,'').length < 10) return '전화번호를 올바르게 입력해주세요.'
+    const phoneDigits = phone.replace(/\D/g,'')
+    if (phoneDigits.length !== 11)     return '전화번호 11자리를 정확히 입력해주세요.'
+    if (!phoneDigits.startsWith('010')) return '010으로 시작하는 휴대폰 번호를 입력해주세요.'
     if (!agreed) return '개인정보 수집·이용에 동의해주세요.'
     return ''
   }
@@ -379,8 +381,18 @@ function ApplyForm() {
 
           <div>
             <label style={labelStyle}>전화번호 <span style={{ color:C.gold }}>*</span></label>
-            <input type="tel" value={phone} onChange={e => setPhone(e.target.value)}
-              placeholder="01012345678" style={inputStyle} />
+            <input
+              type="tel"
+              inputMode="numeric"
+              value={phone}
+              onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 11))}
+              placeholder="01012345678"
+              maxLength={11}
+              style={inputStyle}
+            />
+            <p style={{ fontSize: 12, color: C.textDim, marginTop: 6, fontFamily:'sans-serif' }}>
+              010으로 시작하는 휴대폰 번호 11자리
+            </p>
           </div>
         </div>
 
