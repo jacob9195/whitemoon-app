@@ -2,13 +2,13 @@
 
 // ── 회사 정보 (수정이 필요하면 이 객체만 바꾸면 됨) ──────────
 const COMPANY = {
-  name:        '플랜제이스튜디오',
+  name:        '월백당',
   ceo:         '허성준',
-  bizNumber:   '701-06-02632',
-  mailOrder:   '2024-고양덕양구-2366',
-  address:     '경기도 고양시 덕양구 향기로 70, 102호',
+  bizNumber:   '142-12-02931',
+  mailOrder:   '2025-화성동탄구-2366',
+  address:     '경기도 화성시 동탄구구 동탄순환대로 823, B155-k096호',
   tel:         '070-4544-7648',
-  email:       'whitemoondang@naver.com',
+  email:       'whitemoondang@gmail.com',
   hosting:     'Vercel Inc.',
 } as const
 
